@@ -7,8 +7,9 @@
 
 import UIKit
 
-class FeedViewController: UIViewController {
+final class FeedViewController: UIViewController {
     // MARK: - Properties
+    var presenter: FeedPresenter?
     
     // MARK: - Life Cycle Methods
     override func viewDidLoad() {
@@ -17,4 +18,9 @@ class FeedViewController: UIViewController {
     }
     
     // MARK: - Methods
+}
+
+// MARK: - Extensions
+extension FeedViewController: FeedView {
+    
 }
