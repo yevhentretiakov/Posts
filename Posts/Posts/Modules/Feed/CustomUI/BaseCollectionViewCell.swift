@@ -7,7 +7,12 @@
 
 import UIKit
 
-class BaseCollectionViewCell: UITableViewCell, CellRegistrable {
+// MARK: - Protocols
+protocol CollectionCellDequeuable {
+    static func cell(in collectionView: UICollectionView, at indexPath: IndexPath) -> Self
+}
+
+class BaseCollectionViewCell: UITableViewCell, CellRegistrable, CollectionCellDequeuable {
 
 }
 
@@ -19,5 +24,12 @@ extension CellRegistrable where Self: BaseCollectionViewCell {
     
     static func registerClass(in collectionView: UITableView) {
         collectionView.register(Self.self, forCellReuseIdentifier: String(describing: Self.self))
+    }
+}
+
+// MARK: - CollectionCellDequeuable
+extension CollectionCellDequeuable {
+    static func cell(in collectionView: UICollectionView, at indexPath: IndexPath) -> Self {
+        collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: Self.self), for: indexPath) as! Self
     }
 }

@@ -10,6 +10,7 @@ import Foundation
 // MARK: - Protocols
 protocol FeedView: AnyObject {
     func reloadTableView()
+    func presentAlert(title: String, message: String)
 }
 
 protocol FeedPresenter {
@@ -18,28 +19,45 @@ protocol FeedPresenter {
     func getItem(at index: Int) -> PostModel
     func sortByDate()
     func sortByLikes()
+    func toggleButtonTapped(at index: Int)
 }
 
 final class DefaultFeedPresenter: FeedPresenter {
     // MARK: - Properties
     private weak var view: FeedView?
     private let router: FeedRouter
+    private let networkService: FeedNetworkService
     
-    private var posts = [
-        PostModel(postId: 123, timeshamp: 1645030659, title: "Post 1", previewText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", likesCount: 12),
-        PostModel(postId: 22, timeshamp: 1648809255, title: "Post 2", previewText: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ", likesCount: 44),
-        PostModel(postId: 3, timeshamp: 1648987815, title: "Post 3", previewText: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", likesCount: 23)
-    ]
+    private var posts = [PostModel]()
     
     // MARK: - Life Cycle Methods
-    init(view: FeedView, router: FeedRouter) {
+    init(view: FeedView, router: FeedRouter, networkService: FeedNetworkService) {
         self.view = view
         self.router = router
+        self.networkService = networkService
     }
     
-    // MARK: - Methods
+    // MARK: - Private Methods
+    private func fetchPosts() {
+        networkService.fetchPosts { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let posts):
+                self.posts = posts
+                DispatchQueue.main.async {
+                    self.view?.reloadTableView()
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self.view?.presentAlert(title: "Network Error", message: error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    // MARK: - Internal Methods
     func viewDidLoad() {
-        
+        fetchPosts()
     }
     
     func getItemsCount() -> Int {
@@ -57,6 +75,11 @@ final class DefaultFeedPresenter: FeedPresenter {
     
     func sortByLikes() {
         posts.sort(by: { $0.likesCount > $1.likesCount })
+        view?.reloadTableView()
+    }
+    
+    func toggleButtonTapped(at index: Int) {
+        posts[index].isExpanded?.toggle()
         view?.reloadTableView()
     }
 }

@@ -68,9 +68,6 @@
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <state key="normal" title="Button"/>
                         <buttonConfiguration key="configuration" style="plain" title="Expand"/>
-                        <connections>
-                            <action selector="toggleButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="hdI-mA-OgQ"/>
-                        </connections>
                     </button>
                 </subviews>
                 <constraints>
@@ -98,6 +95,7 @@
                 <outlet property="toggleButton" destination="ilp-An-Cx4" id="plC-TJ-7SW"/>
                 <outlet property="toggleButtonBottomAnchor" destination="sPH-Gi-XxD" id="XF2-uo-xdr"/>
                 <outlet property="toggleButtonHeightAnchor" destination="Ll9-Nr-rxW" id="NFz-h3-76w"/>
+                <outlet property="toogleButtonTopAnchor" destination="sw6-23-I0P" id="4Sf-vh-DxZ"/>
             </connections>
             <point key="canvasLocation" x="216.66666666666669" y="219.97767857142856"/>
         </tableViewCell>
@@ -105,7 +103,7 @@
     <resources>
         <image name="heart.fill" catalog="system" width="128" height="109"/>
         <namedColor name="AppDarkColor">
-            <color red="0.28627450980392155" green="0.32156862745098042" blue="0.36470588235294116" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.28600001335144043" green="0.32199999690055847" blue="0.36500000953674316" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

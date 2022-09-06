@@ -17,6 +17,7 @@ struct PostModel: Codable {
     let title: String
     let previewText: String
     let likesCount: Int
+    var isExpanded: Bool? = false
     
     enum CodingKeys: String, CodingKey {
         case postId

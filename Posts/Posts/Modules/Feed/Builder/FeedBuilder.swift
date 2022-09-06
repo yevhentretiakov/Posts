@@ -17,7 +17,8 @@ final class DefaultFeedBuilder: FeedBuilder {
     func createFeedModule() -> UIViewController {
         let view = FeedViewController()
         let router = DefaultFeedRouter(viewController: view)
-        let presenter = DefaultFeedPresenter(view: view, router: router)
+        let networkService = DefaultFeedNetworkService()
+        let presenter = DefaultFeedPresenter(view: view, router: router, networkService: networkService)
         view.presenter = presenter
         return UINavigationController(rootViewController: view)
     }

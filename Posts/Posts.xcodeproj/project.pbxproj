@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE00403E28C72B830094E18C /* EmptyBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE00403D28C72B830094E18C /* EmptyBlock.swift */; };
+		CE00404028C72BAA0094E18C /* UINavigationController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE00403F28C72BAA0094E18C /* UINavigationController+Extensions.swift */; };
+		CE00404228C72BE40094E18C /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE00404128C72BE40094E18C /* UIViewController+Extensions.swift */; };
+		CE00404528C72DAA0094E18C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE00404428C72DAA0094E18C /* NetworkService.swift */; };
 		CE09882328C5EBA30033AA5B /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE09882228C5EBA30033AA5B /* UIView+Extensions.swift */; };
 		CE09882528C5EE2D0033AA5B /* Int+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE09882428C5EE2D0033AA5B /* Int+Extensions.swift */; };
 		CE09882728C5EED10033AA5B /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE09882628C5EED10033AA5B /* Date+Extensions.swift */; };
@@ -31,6 +35,10 @@
 /* Begin PBXFileReference section */
 		5947BDB46644D02FFDE22F89 /* Pods-Posts.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Posts.debug.xcconfig"; path = "Target Support Files/Pods-Posts/Pods-Posts.debug.xcconfig"; sourceTree = "<group>"; };
 		CA37A62154F9D54F927DEDC6 /* Pods-Posts.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Posts.release.xcconfig"; path = "Target Support Files/Pods-Posts/Pods-Posts.release.xcconfig"; sourceTree = "<group>"; };
+		CE00403D28C72B830094E18C /* EmptyBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyBlock.swift; sourceTree = "<group>"; };
+		CE00403F28C72BAA0094E18C /* UINavigationController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extensions.swift"; sourceTree = "<group>"; };
+		CE00404128C72BE40094E18C /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
+		CE00404428C72DAA0094E18C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		CE09882228C5EBA30033AA5B /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		CE09882428C5EE2D0033AA5B /* Int+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extensions.swift"; sourceTree = "<group>"; };
 		CE09882628C5EED10033AA5B /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
@@ -81,6 +89,22 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		CE00403C28C72B5A0094E18C /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				CE00403D28C72B830094E18C /* EmptyBlock.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		CE00404328C72D880094E18C /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				CE00404428C72DAA0094E18C /* NetworkService.swift */,
+			);
+			path = NetworkService;
+			sourceTree = "<group>";
+		};
 		CE56254628C1EE9700CF2D40 = {
 			isa = PBXGroup;
 			children = (
@@ -102,11 +126,11 @@
 		CE56255128C1EE9700CF2D40 /* Posts */ = {
 			isa = PBXGroup;
 			children = (
-				CE56257A28C1FBE000CF2D40 /* BaseRouter */,
 				CE56256628C1EF0A00CF2D40 /* Application */,
 				CE56256828C1EF3D00CF2D40 /* Modules */,
-				CE56257128C1F1E700CF2D40 /* Managers */,
+				CE56257128C1F1E700CF2D40 /* Services */,
 				CE56257228C1F1F000CF2D40 /* Extensions */,
+				CE00403C28C72B5A0094E18C /* Utilities */,
 				CE56256728C1EF2900CF2D40 /* Support Files */,
 				CE56256028C1EE9900CF2D40 /* Info.plist */,
 			);
@@ -193,11 +217,13 @@
 			path = Router;
 			sourceTree = "<group>";
 		};
-		CE56257128C1F1E700CF2D40 /* Managers */ = {
+		CE56257128C1F1E700CF2D40 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				CE00404328C72D880094E18C /* NetworkService */,
+				CE56257A28C1FBE000CF2D40 /* BaseRouter */,
 			);
-			path = Managers;
+			path = Services;
 			sourceTree = "<group>";
 		};
 		CE56257228C1F1F000CF2D40 /* Extensions */ = {
@@ -207,6 +233,8 @@
 				CE09882428C5EE2D0033AA5B /* Int+Extensions.swift */,
 				CE09882628C5EED10033AA5B /* Date+Extensions.swift */,
 				CE09882828C604E10033AA5B /* String+Extensions.swift */,
+				CE00403F28C72BAA0094E18C /* UINavigationController+Extensions.swift */,
+				CE00404128C72BE40094E18C /* UIViewController+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -359,11 +387,15 @@
 				CE09882728C5EED10033AA5B /* Date+Extensions.swift in Sources */,
 				CE56257E28C2059500CF2D40 /* PostModel.swift in Sources */,
 				CE56257028C1F04600CF2D40 /* FeedViewController.swift in Sources */,
+				CE00404228C72BE40094E18C /* UIViewController+Extensions.swift in Sources */,
 				CE56255328C1EE9700CF2D40 /* AppDelegate.swift in Sources */,
+				CE00404028C72BAA0094E18C /* UINavigationController+Extensions.swift in Sources */,
 				CE56257928C1F43600CF2D40 /* FeedPresenter.swift in Sources */,
+				CE00404528C72DAA0094E18C /* NetworkService.swift in Sources */,
 				CE09882928C604E10033AA5B /* String+Extensions.swift in Sources */,
 				CE09882F28C62A7C0033AA5B /* BaseCollectionViewCell.swift in Sources */,
 				CE56258128C2139C00CF2D40 /* FeedNetworkService.swift in Sources */,
+				CE00403E28C72B830094E18C /* EmptyBlock.swift in Sources */,
 				CE56255528C1EE9700CF2D40 /* SceneDelegate.swift in Sources */,
 				CE09882528C5EE2D0033AA5B /* Int+Extensions.swift in Sources */,
 				CE56258428C2152C00CF2D40 /* PostTableViewCell.swift in Sources */,

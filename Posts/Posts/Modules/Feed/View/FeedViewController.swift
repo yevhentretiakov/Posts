@@ -48,7 +48,7 @@ final class FeedViewController: UIViewController {
         presenter?.viewDidLoad()
     }
     
-    // MARK: - Methods
+    // MARK: - Private Methods
     private func setupNavigationBar() {
         title = "Feed"
         navigationItem.rightBarButtonItem = sortButton
@@ -79,6 +79,9 @@ extension FeedViewController: FeedView {
     func reloadTableView() {
         tableView.reloadData()
     }
+    func presentAlert(title: String, message: String) {
+        showAlert(title: title, message: message)
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -88,11 +91,17 @@ extension FeedViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PostTableViewCell.self), for: indexPath) as! PostTableViewCell
+        let cell = PostTableViewCell.cell(in: tableView, at: indexPath)
         if let post = presenter?.getItem(at: indexPath.row) {
-            cell.configure(with: post)
+            cell.configure(with: post, width: view.bounds.width)
+            cell.toggleButton.tag = indexPath.row
+            cell.toggleButton.addTarget(self, action: #selector(toggleButtonTapped(sender:)), for: .touchUpInside)
         }
         return cell
+    }
+    
+    @objc private func toggleButtonTapped(sender: UIButton) {
+        presenter?.toggleButtonTapped(at: sender.tag)
     }
 }
 
