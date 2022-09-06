@@ -1,5 +1,5 @@
 //
-//  MapModuleBuilder.swift
+//  FeedBuilder.swift
 //  Posts
 //
 //  Created by Yevhen Tretiakov on 02.09.2022.
