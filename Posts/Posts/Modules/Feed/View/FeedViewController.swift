@@ -71,7 +71,6 @@ final class FeedViewController: UIViewController {
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
         ])
     }
-    
 }
 
 // MARK: - FeedView
