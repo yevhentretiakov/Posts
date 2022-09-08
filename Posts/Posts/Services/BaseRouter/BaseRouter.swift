@@ -27,7 +27,7 @@ class DefaultBaseRouter: BaseRouter {
         self.viewController = viewController
     }
     
-    // MARK: - Methods
+    // MARK: - Internal Methods
     func show(viewController: UIViewController, isModal: Bool, animated: Bool, completion: EmptyBlock? = nil) {
         if isModal {
             let presentingViewController = navigationController ?? self.viewController
@@ -60,6 +60,7 @@ class DefaultBaseRouter: BaseRouter {
         }
     }
     
+    // MARK: - Private Methods
     private func dismiss(animated: Bool, completion: EmptyBlock? = nil) {
         viewController.dismiss(animated: animated, completion: completion)
     }

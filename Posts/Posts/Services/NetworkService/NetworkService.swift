@@ -10,12 +10,12 @@ import Alamofire
 
 // MARK: - Protocols
 protocol NetworkService {
-    func request(with url: String) -> DataRequest
+    func request(_ endpoint: ApiEndpoint) -> DataRequest
 }
 
 class DefaultNetworkService: NetworkService {
     // MARK: - Methods
-    func request(with url: String) -> DataRequest {
-        AF.request(url)
+    func request(_ endpoint: ApiEndpoint) -> DataRequest {
+        AF.request(endpoint.url)
     }
 }

@@ -12,7 +12,6 @@
 		CE00404228C72BE40094E18C /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE00404128C72BE40094E18C /* UIViewController+Extensions.swift */; };
 		CE00404528C72DAA0094E18C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE00404428C72DAA0094E18C /* NetworkService.swift */; };
 		CE09882328C5EBA30033AA5B /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE09882228C5EBA30033AA5B /* UIView+Extensions.swift */; };
-		CE09882528C5EE2D0033AA5B /* Int+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE09882428C5EE2D0033AA5B /* Int+Extensions.swift */; };
 		CE09882728C5EED10033AA5B /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE09882628C5EED10033AA5B /* Date+Extensions.swift */; };
 		CE09882928C604E10033AA5B /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE09882828C604E10033AA5B /* String+Extensions.swift */; };
 		CE09882D28C60B8E0033AA5B /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE09882C28C60B8E0033AA5B /* BaseTableViewCell.swift */; };
@@ -30,6 +29,7 @@
 		CE56258128C2139C00CF2D40 /* FeedNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE56258028C2139C00CF2D40 /* FeedNetworkService.swift */; };
 		CE56258428C2152C00CF2D40 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE56258228C2152C00CF2D40 /* PostTableViewCell.swift */; };
 		CE56258528C2152C00CF2D40 /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE56258328C2152C00CF2D40 /* PostTableViewCell.xib */; };
+		CE85A45D28CA1B8900C2BA35 /* ApiEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE85A45C28CA1B8900C2BA35 /* ApiEndpoint.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,7 +40,6 @@
 		CE00404128C72BE40094E18C /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		CE00404428C72DAA0094E18C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		CE09882228C5EBA30033AA5B /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
-		CE09882428C5EE2D0033AA5B /* Int+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extensions.swift"; sourceTree = "<group>"; };
 		CE09882628C5EED10033AA5B /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		CE09882828C604E10033AA5B /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		CE09882C28C60B8E0033AA5B /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
@@ -60,6 +59,7 @@
 		CE56258028C2139C00CF2D40 /* FeedNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedNetworkService.swift; sourceTree = "<group>"; };
 		CE56258228C2152C00CF2D40 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		CE56258328C2152C00CF2D40 /* PostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostTableViewCell.xib; sourceTree = "<group>"; };
+		CE85A45C28CA1B8900C2BA35 /* ApiEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiEndpoint.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				CE00404428C72DAA0094E18C /* NetworkService.swift */,
+				CE85A45C28CA1B8900C2BA35 /* ApiEndpoint.swift */,
 			);
 			path = NetworkService;
 			sourceTree = "<group>";
@@ -230,7 +231,6 @@
 			isa = PBXGroup;
 			children = (
 				CE09882228C5EBA30033AA5B /* UIView+Extensions.swift */,
-				CE09882428C5EE2D0033AA5B /* Int+Extensions.swift */,
 				CE09882628C5EED10033AA5B /* Date+Extensions.swift */,
 				CE09882828C604E10033AA5B /* String+Extensions.swift */,
 				CE00403F28C72BAA0094E18C /* UINavigationController+Extensions.swift */,
@@ -397,10 +397,10 @@
 				CE56258128C2139C00CF2D40 /* FeedNetworkService.swift in Sources */,
 				CE00403E28C72B830094E18C /* EmptyBlock.swift in Sources */,
 				CE56255528C1EE9700CF2D40 /* SceneDelegate.swift in Sources */,
-				CE09882528C5EE2D0033AA5B /* Int+Extensions.swift in Sources */,
 				CE56258428C2152C00CF2D40 /* PostTableViewCell.swift in Sources */,
 				CE09882D28C60B8E0033AA5B /* BaseTableViewCell.swift in Sources */,
 				CE09882328C5EBA30033AA5B /* UIView+Extensions.swift in Sources */,
+				CE85A45D28CA1B8900C2BA35 /* ApiEndpoint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

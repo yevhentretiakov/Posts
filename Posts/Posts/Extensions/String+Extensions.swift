@@ -8,7 +8,7 @@
 import UIKit
 
 extension String {
-    func getFrameRect(withFont font: UIFont = UIFont.systemFont(ofSize: 17), width: CGFloat, lines: Int) -> CGRect {
+    func getRect(withFont font: UIFont = UIFont.systemFont(ofSize: 17), width: CGFloat, lines: Int) -> CGRect {
         let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
         label.numberOfLines = lines
         label.lineBreakMode = NSLineBreakMode.byWordWrapping

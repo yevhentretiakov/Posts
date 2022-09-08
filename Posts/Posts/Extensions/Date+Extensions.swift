@@ -8,8 +8,14 @@
 import Foundation
 
 extension Date {
-    func extract(_ format: String) -> String {
-        let formatter = DateFormatter()
+    private static var dateFormatter = DateFormatter()
+    
+    static func getDate(with interval: Double) -> Date {
+        return Date(timeIntervalSince1970: interval)
+    }
+    
+    func dateString(in format: String = "dd MMMM") -> String {
+        let formatter = Date.dateFormatter
         formatter.dateFormat = format
         return formatter.string(from: self)
     }

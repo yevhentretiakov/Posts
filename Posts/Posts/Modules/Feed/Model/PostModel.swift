@@ -8,23 +8,22 @@
 import Foundation
 
 struct PostsResponse: Codable {
-    let posts: [PostModel]
+    let posts: [PostNetworkModel]
 }
 
-struct PostModel: Codable {
+struct PostNetworkModel: Codable {
     let postId: Int
     let timeshamp: Int
     let title: String
     let previewText: String
     let likesCount: Int
-    var isExpanded: Bool? = false
-    
-    enum CodingKeys: String, CodingKey {
-        case postId
-        case timeshamp
-        case title
-        case previewText = "preview_text"
-        case likesCount = "likes_count"
-    }
 }
 
+struct PostUIModel {
+    let postId: Int
+    let timeshamp: Int
+    let title: String
+    let previewText: String
+    let likesCount: Int
+    var isExpanded: Bool = false
+}
