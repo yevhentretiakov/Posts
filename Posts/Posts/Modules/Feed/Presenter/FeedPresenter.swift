@@ -59,6 +59,10 @@ final class DefaultFeedPresenter: FeedPresenter {
                     DispatchQueue.main.async {
                         self.view?.reloadData()
                     }
+                } else {
+                    DispatchQueue.main.async {
+                        self.view?.showMessage(title: "Network Error", message: "Please try again later...")
+                    }
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
