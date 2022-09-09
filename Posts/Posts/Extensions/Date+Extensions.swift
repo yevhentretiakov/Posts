@@ -10,8 +10,8 @@ import Foundation
 extension Date {
     private static var dateFormatter = DateFormatter()
     
-    static func getDate(with interval: Double) -> Date {
-        return Date(timeIntervalSince1970: interval)
+    static func getDate(from timeInterval: Double) -> Date {
+        return Date(timeIntervalSince1970: timeInterval)
     }
     
     func dateString(in format: String = "dd MMMM") -> String {

@@ -10,6 +10,7 @@ import Foundation
 // MARK: - Enums
 enum ApiEndpoint {
     case fetchPosts
+    static let baseURL = "https://raw.githubusercontent.com/anton-natife/jsons/master/api"
 }
 
 // MARK: - Protocols
@@ -22,9 +23,8 @@ extension ApiEndpoint: HTTPRequest {
     var url: String {
         switch self {
         case .fetchPosts:
-            let baseURL = "https://raw.githubusercontent.com/anton-natife/jsons/master/api"
             let path = "/main.json"
-            return baseURL + path
+            return ApiEndpoint.baseURL + path
         }
     }
 }

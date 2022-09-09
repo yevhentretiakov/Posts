@@ -92,8 +92,7 @@ extension FeedViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = PostTableViewCell.cell(in: tableView, at: indexPath)
         let post = presenter.getItem(at: indexPath.row)
-        cell.configure(with: post)
-        cell.toggleButtonAction = { [unowned self] in
+        cell.configure(with: post) { [unowned self] in
             self.presenter.toggleButtonTapped(at: indexPath.row)
         }
         return cell

@@ -87,10 +87,10 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="date" destination="WjE-CH-dCe" id="MWP-6M-B1O"/>
-                <outlet property="likesCount" destination="aHd-mE-EJG" id="WOu-He-LA7"/>
-                <outlet property="previewText" destination="E9R-bL-m3W" id="DqL-yI-lac"/>
-                <outlet property="title" destination="fVq-dA-IUc" id="Bse-NV-EIn"/>
+                <outlet property="dateLabel" destination="WjE-CH-dCe" id="MWP-6M-B1O"/>
+                <outlet property="likesCountLabel" destination="aHd-mE-EJG" id="WOu-He-LA7"/>
+                <outlet property="previewTextLabel" destination="E9R-bL-m3W" id="DqL-yI-lac"/>
+                <outlet property="titleLabel" destination="fVq-dA-IUc" id="Bse-NV-EIn"/>
                 <outlet property="toggleButton" destination="ilp-An-Cx4" id="plC-TJ-7SW"/>
                 <outlet property="toggleButtonHeightAnchor" destination="UT4-GY-eIa" id="PUO-DO-ysf"/>
             </connections>

@@ -31,12 +31,12 @@ final class DefaultFeedPresenter: FeedPresenter {
     // MARK: - Properties
     private weak var view: FeedView?
     private let router: FeedRouter
-    private let networkService: FeedNetworkService
+    private let networkService: FeedRepository
     
     private var posts = [PostUIModel]()
     
     // MARK: - Life Cycle Methods
-    init(view: FeedView, router: FeedRouter, networkService: FeedNetworkService) {
+    init(view: FeedView, router: FeedRouter, networkService: FeedRepository) {
         self.view = view
         self.router = router
         self.networkService = networkService
@@ -48,15 +48,17 @@ final class DefaultFeedPresenter: FeedPresenter {
             guard let self = self else { return }
             switch result {
             case .success(let posts):
-                self.posts = posts.map({ post in
-                    PostUIModel(postId: post.postId,
-                                timeshamp: post.timeshamp,
-                                title: post.title,
-                                previewText: post.previewText,
-                                likesCount: post.likesCount)
-                })
-                DispatchQueue.main.async {
-                    self.view?.reloadData()
+                if let posts = posts {
+                    self.posts = posts.map({ post in
+                        PostUIModel(postId: post.postId,
+                                    timeshamp: post.timeshamp,
+                                    title: post.title,
+                                    previewText: post.previewText,
+                                    likesCount: post.likesCount)
+                    })
+                    DispatchQueue.main.async {
+                        self.view?.reloadData()
+                    }
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
