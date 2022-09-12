@@ -26,7 +26,7 @@ final class DefaultFeedRepository: FeedRepository {
     
     // MARK: - Internal Methods
     func fetchPosts(completion: @escaping PostModelResult) {
-        networkService.get(PostsResponse.self, from: .fetchPosts) { response in
+        networkService.request(PostsResponse.self, from: .fetchPosts) { response in
             if let error = response.error {
                 completion(.failure(error))
             } else {

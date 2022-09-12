@@ -31,20 +31,20 @@ final class DefaultFeedPresenter: FeedPresenter {
     // MARK: - Properties
     private weak var view: FeedView?
     private let router: FeedRouter
-    private let networkService: FeedRepository
+    private let repository: FeedRepository
     
     private var posts = [PostUIModel]()
     
     // MARK: - Life Cycle Methods
-    init(view: FeedView, router: FeedRouter, networkService: FeedRepository) {
+    init(view: FeedView, router: FeedRouter, repository: FeedRepository) {
         self.view = view
         self.router = router
-        self.networkService = networkService
+        self.repository = repository
     }
     
     // MARK: - Private Methods
     private func fetchPosts() {
-        networkService.fetchPosts { [weak self] result in
+        repository.fetchPosts { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let posts):

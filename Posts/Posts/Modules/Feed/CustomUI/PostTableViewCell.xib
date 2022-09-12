@@ -14,30 +14,30 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="333" id="KGk-i7-Jjw" customClass="PostTableViewCell" customModule="Posts" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="590" height="333"/>
+            <rect key="frame" x="0.0" y="0.0" width="605" height="333"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="590" height="333"/>
+                <rect key="frame" x="0.0" y="0.0" width="605" height="333"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="p8T-Oj-HfI">
-                        <rect key="frame" x="20" y="16" width="550" height="192.5"/>
+                        <rect key="frame" x="20" y="16" width="565" height="192.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Charlie Deets" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fVq-dA-IUc">
-                                <rect key="frame" x="0.0" y="0.0" width="550" height="20.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="565" height="20.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E9R-bL-m3W">
-                                <rect key="frame" x="0.0" y="30.5" width="550" height="81.5"/>
+                                <rect key="frame" x="0.0" y="30.5" width="565" height="81.5"/>
                                 <string key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="dtL-xR-To8">
-                                <rect key="frame" x="0.0" y="122" width="550" height="20.5"/>
+                                <rect key="frame" x="0.0" y="122" width="565" height="20.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="bwk-Yb-4Tb">
                                         <rect key="frame" x="0.0" y="0.0" width="71" height="20.5"/>
@@ -55,7 +55,7 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22 November 2022" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WjE-CH-dCe">
-                                        <rect key="frame" x="402.5" y="0.0" width="147.5" height="20.5"/>
+                                        <rect key="frame" x="417.5" y="0.0" width="147.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -63,7 +63,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ilp-An-Cx4">
-                                <rect key="frame" x="0.0" y="152.5" width="550" height="40"/>
+                                <rect key="frame" x="0.0" y="152.5" width="565" height="40"/>
                                 <color key="backgroundColor" name="AppDarkColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="UT4-GY-eIa"/>
@@ -92,9 +92,8 @@
                 <outlet property="previewTextLabel" destination="E9R-bL-m3W" id="DqL-yI-lac"/>
                 <outlet property="titleLabel" destination="fVq-dA-IUc" id="Bse-NV-EIn"/>
                 <outlet property="toggleButton" destination="ilp-An-Cx4" id="plC-TJ-7SW"/>
-                <outlet property="toggleButtonHeightAnchor" destination="UT4-GY-eIa" id="PUO-DO-ysf"/>
             </connections>
-            <point key="canvasLocation" x="-353.62318840579712" y="233.37053571428569"/>
+            <point key="canvasLocation" x="-342.75362318840581" y="233.37053571428569"/>
         </tableViewCell>
     </objects>
     <resources>

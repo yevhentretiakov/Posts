@@ -108,6 +108,14 @@
 			path = NetworkService;
 			sourceTree = "<group>";
 		};
+		CE36877A28CF253E002240CD /* DataRepository */ = {
+			isa = PBXGroup;
+			children = (
+				CE56257F28C2137B00CF2D40 /* FeedRepository */,
+			);
+			path = DataRepository;
+			sourceTree = "<group>";
+		};
 		CE56254628C1EE9700CF2D40 = {
 			isa = PBXGroup;
 			children = (
@@ -129,6 +137,7 @@
 		CE56255128C1EE9700CF2D40 /* Posts */ = {
 			isa = PBXGroup;
 			children = (
+				CE36877A28CF253E002240CD /* DataRepository */,
 				CE56256628C1EF0A00CF2D40 /* Application */,
 				CE56256828C1EF3D00CF2D40 /* Modules */,
 				CE56257128C1F1E700CF2D40 /* Services */,
@@ -169,7 +178,6 @@
 		CE56256928C1EF4700CF2D40 /* Feed */ = {
 			isa = PBXGroup;
 			children = (
-				CE56257F28C2137B00CF2D40 /* Repository */,
 				CE56257328C1F2AE00CF2D40 /* CustomUI */,
 				CE56256A28C1EF7200CF2D40 /* Model */,
 				CE56256E28C1EF8800CF2D40 /* Router */,
@@ -261,12 +269,12 @@
 			path = BaseRouter;
 			sourceTree = "<group>";
 		};
-		CE56257F28C2137B00CF2D40 /* Repository */ = {
+		CE56257F28C2137B00CF2D40 /* FeedRepository */ = {
 			isa = PBXGroup;
 			children = (
 				CE56258028C2139C00CF2D40 /* FeedRepository.swift */,
 			);
-			path = Repository;
+			path = FeedRepository;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
