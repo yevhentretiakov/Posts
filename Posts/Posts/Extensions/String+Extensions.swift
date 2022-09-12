@@ -8,13 +8,11 @@
 import UIKit
 
 extension String {
-    func getRect(font: UIFont = UIFont.systemFont(ofSize: 17), width: CGFloat, lines: Int) -> CGRect {
-        let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
-        label.numberOfLines = lines
-        label.lineBreakMode = NSLineBreakMode.byWordWrapping
-        label.font = font
-        label.text = self
-        label.sizeToFit()
-        return label.frame
+    func numberOfLines(font: UIFont = UIFont.systemFont(ofSize: 17) , width: CGFloat) -> Int {
+        let rect = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let attributedString = NSAttributedString(string: self, attributes: [NSAttributedString.Key.font : font])
+        let boundingBox = attributedString.boundingRect(with: rect, options: .usesLineFragmentOrigin, context: nil)
+        let numberOfLines = Int(boundingBox.height/font.lineHeight)
+        return numberOfLines
     }
 }

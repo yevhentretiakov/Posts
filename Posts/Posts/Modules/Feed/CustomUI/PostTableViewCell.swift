@@ -47,12 +47,8 @@ final class PostTableViewCell: BaseTableViewCell {
     // MARK: - Private Methods
     private func setupToggleButton(with width: CGFloat) {
         toggleButton.cornerRadius = 5
-        
-        let previewText = previewTextLabel.text
-        
-        if let textFullHeight = previewText?.getRect(width: width, lines: 0).height,
-           let textLimitedHeight = previewText?.getRect(width: width, lines: textLinesLimit).height,
-           textFullHeight <= textLimitedHeight {
+        if let numberOfLines = previewTextLabel.text?.numberOfLines(width: width),
+           numberOfLines <= 2 {
             hideButton()
         } else {
             showButton()
