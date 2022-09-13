@@ -25,6 +25,6 @@ struct PostDetailModel: Codable {
         case title
         case body = "text"
         case imageUrl = "postImage"
-        case likesCount = "likes_count"
+        case likesCount
     }
 }

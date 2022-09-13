@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - Protocols
 protocol DetailView: AnyObject {
-    func presentAlert(title: String, message: String)
+    func showMessage(title: String, message: String)
     func configurePost(with model: PostDetailModel)
 }
 
@@ -21,32 +21,38 @@ final class DefaultDetailPresenter: DetailPresenter {
     // MARK: - Properties
     private weak var view: DetailView?
     private let router: DetailRouter
-    private let networkService: DetailNetworkService
+    private let repository: DetailRepository
     
     // MARK: - Life Cycle Methods
-    init(view: DetailView, router: DetailRouter, networkService: DetailNetworkService) {
+    init(view: DetailView, router: DetailRouter, repository: DetailRepository) {
         self.view = view
         self.router = router
-        self.networkService = networkService
+        self.repository = repository
     }
     
     // MARK: - Internal Methods
     func viewDidLoad(withPostId id: Int) {
-        fetchPost(with: id)
+        fetchPostDetails(with: id)
     }
     
     // MARK: - Private Methods
-    private func fetchPost(with id: Int) {
-        networkService.fetchPost(with: id) { [weak self] result in
+    private func fetchPostDetails(with id: Int) {
+        repository.fetchPostDetails(with: id) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let post):
-                DispatchQueue.main.async {
-                    self.view?.configurePost(with: post)
+                if let post = post {
+                    DispatchQueue.main.async {
+                        self.view?.configurePost(with: post)
+                    }
+                }  else {
+                    DispatchQueue.main.async {
+                        self.view?.showMessage(title: "Network Error", message: "Please try again later...")
+                    }
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
-                    self.view?.presentAlert(title: "Network Error", message: error.localizedDescription)
+                    self.view?.showMessage(title: "Network Error", message: error.localizedDescription)
                 }
             }
         }

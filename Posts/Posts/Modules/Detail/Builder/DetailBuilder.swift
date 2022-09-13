@@ -18,8 +18,8 @@ final class DefaultDetailBuilder {
         let view = DetailViewController()
         view.postId = id
         let router = DefaultDetailRouter(viewController: view)
-        let networkService = DefaultDetailNetworkService()
-        let presenter = DefaultDetailPresenter(view: view, router: router, networkService: networkService)
+        let repository = DefaultDetailRepository()
+        let presenter = DefaultDetailPresenter(view: view, router: router, repository: repository)
         view.presenter = presenter
         return view
     }

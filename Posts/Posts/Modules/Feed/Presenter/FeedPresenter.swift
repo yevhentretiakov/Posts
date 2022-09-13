@@ -25,6 +25,7 @@ protocol FeedPresenter {
     func getItem(at index: Int) -> PostUIModel
     func sortPosts(by sortType: SortType)
     func toggleButtonTapped(at index: Int)
+    func postTapped(with index: Int)
 }
 
 final class DefaultFeedPresenter: FeedPresenter {
@@ -98,5 +99,10 @@ final class DefaultFeedPresenter: FeedPresenter {
     func toggleButtonTapped(at index: Int) {
         posts[index].isExpanded.toggle()
         view?.reloadData()
+    }
+    
+    func postTapped(with index: Int) {
+        let postId = posts[index].postId
+        router.showPostDetails(with: postId)
     }
 }

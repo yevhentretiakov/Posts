@@ -15,7 +15,7 @@ protocol NetworkService {
     func request<T: Decodable>(_ type: T.Type, from endpoint: ApiEndpoint, completion: @escaping AFResponse<T>)
 }
 
-class DefaultNetworkService: NetworkService {
+final class DefaultNetworkService: NetworkService {
     // MARK: - Properties
     private static let decoder: JSONDecoder = {
         let decoder = JSONDecoder()

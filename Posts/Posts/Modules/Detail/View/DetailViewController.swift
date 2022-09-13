@@ -9,8 +9,8 @@ import UIKit
 
 final class DetailViewController: UIViewController {
     // MARK: - Properties
-    var presenter: DetailPresenter?
-    var postId: Int?
+    var presenter: DetailPresenter!
+    var postId: Int!
     
     // MARK: - Outlets
     @IBOutlet private weak var postImageView: UIImageView!
@@ -22,15 +22,13 @@ final class DetailViewController: UIViewController {
     // MARK: - Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let postId = postId {
-            presenter?.viewDidLoad(withPostId: postId)
-        }
+        presenter.viewDidLoad(withPostId: postId)
     }
 }
 
 // MARK: - DetailView
 extension DetailViewController: DetailView {
-    func presentAlert(title: String, message: String) {
+    func showMessage(title: String, message: String) {
         showAlert(title: title, message: message)
     }
     
@@ -38,7 +36,7 @@ extension DetailViewController: DetailView {
         postImageView.setImage(with: model.imageUrl)
         postTitleLabel.text = model.title
         postBodyLabel.text = model.body
-        postLikesCountLabel.text = String(model.likesCount)
-        postDateLabel.text = model.timeshamp.date.extract("dd MMMM")
+        postLikesCountLabel.text = model.likesCount.stringValue
+        postDateLabel.text = Date.getDate(from: TimeInterval(model.timeshamp)).dateString()
     }
 }
