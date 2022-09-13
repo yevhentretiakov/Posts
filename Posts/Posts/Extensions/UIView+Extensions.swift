@@ -10,6 +10,7 @@ import UIKit
 extension UIView {
     var cornerRadius: CGFloat {
         set {
+            self.layer.masksToBounds = true
             self.layer.cornerRadius = newValue
         }
         get {

@@ -9,7 +9,7 @@ import UIKit
 
 final class FeedViewController: UIViewController {
     // MARK: - Properties
-    var presenter: FeedPresenter?
+    var presenter: FeedPresenter!
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -20,10 +20,10 @@ final class FeedViewController: UIViewController {
     private lazy var menuActions: [UIAction] = {
         return [
             UIAction(title: "Sort by Date", image: UIImage(systemName: "clock.arrow.circlepath")) { _ in
-                self.presenter?.sortByDate()
+                self.presenter.sortPosts(by: .date)
             },
             UIAction(title: "Sort by Likes", image: UIImage(systemName: "heart")) { _ in
-                self.presenter?.sortByLikes()
+                self.presenter.sortPosts(by: .likesCount)
             }
         ]
     }()
@@ -45,7 +45,7 @@ final class FeedViewController: UIViewController {
         setupNavigationBar()
         setupTableView()
         layoutTableView()
-        presenter?.viewDidLoad()
+        presenter.viewDidLoad()
     }
     
     // MARK: - Private Methods
@@ -75,10 +75,10 @@ final class FeedViewController: UIViewController {
 
 // MARK: - FeedView
 extension FeedViewController: FeedView {
-    func reloadTableView() {
+    func reloadData() {
         tableView.reloadData()
     }
-    func presentAlert(title: String, message: String) {
+    func showMessage(title: String, message: String) {
         showAlert(title: title, message: message)
     }
 }
@@ -86,21 +86,16 @@ extension FeedViewController: FeedView {
 // MARK: - UITableViewDataSource
 extension FeedViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter?.getItemsCount() ?? 0
+        return presenter.getItemsCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = PostTableViewCell.cell(in: tableView, at: indexPath)
-        if let post = presenter?.getItem(at: indexPath.row) {
-            cell.configure(with: post, width: view.bounds.width)
-            cell.toggleButton.tag = indexPath.row
-            cell.toggleButton.addTarget(self, action: #selector(toggleButtonTapped(sender:)), for: .touchUpInside)
+        let post = presenter.getItem(at: indexPath.row)
+        cell.configure(with: post) { [unowned self] in
+            self.presenter.toggleButtonTapped(at: indexPath.row)
         }
         return cell
-    }
-    
-    @objc private func toggleButtonTapped(sender: UIButton) {
-        presenter?.toggleButtonTapped(at: sender.tag)
     }
 }
 

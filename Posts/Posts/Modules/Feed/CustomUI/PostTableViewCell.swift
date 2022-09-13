@@ -7,48 +7,48 @@
 
 import UIKit
 
+// MARK: - Enums
+enum PostCellState {
+    case collapsed
+    case expanded
+    
+    var title: String {
+        switch self {
+        case .collapsed:
+            return "Expand"
+        case .expanded:
+            return "Collapse"
+        }
+    }
+}
+
 final class PostTableViewCell: BaseTableViewCell {
     // MARK: - Properties
-    @IBOutlet private weak var title: UILabel!
-    @IBOutlet private weak var previewText: UILabel!
-    @IBOutlet private weak var likesCount: UILabel!
-    @IBOutlet private weak var date: UILabel!
-    @IBOutlet weak var toggleButton: UIButton!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var previewTextLabel: UILabel!
+    @IBOutlet private weak var likesCountLabel: UILabel!
+    @IBOutlet private weak var dateLabel: UILabel!
+    @IBOutlet private weak var toggleButton: UIButton!
     
-    @IBOutlet private weak var toggleButtonBottomAnchor: NSLayoutConstraint!
-    @IBOutlet private weak var toggleButtonHeightAnchor: NSLayoutConstraint!
-    @IBOutlet weak var toogleButtonTopAnchor: NSLayoutConstraint!
-    
-    private let textLinesLimiter = 2
-    private let contentInset: CGFloat = 20
+    private let textLinesLimit = 2
+    private var toggleButtonAction: EmptyBlock?
     
     // MARK: - Internal Methods
-    func configure(with model: PostModel, width: CGFloat) {
-        title.text = model.title
-        previewText.text = model.previewText
-        likesCount.text = String(model.likesCount)
-        date.text = model.timeshamp.date.extract("dd MMMM")
-        setupToggleButton(with: width)
-        
-        if let isExpanded = model.isExpanded, isExpanded {
-            previewText.numberOfLines = 0
-            toggleButton.setTitle("Collapse", for: .normal)
-        } else {
-            previewText.numberOfLines = 2
-            toggleButton.setTitle("Expand", for: .normal)
-        }
+    func configure(with model: PostUIModel, buttonAction: EmptyBlock? = nil) {
+        titleLabel.text = model.title
+        previewTextLabel.text = model.previewText
+        likesCountLabel.text = model.likesCount.stringValue
+        dateLabel.text = Date.getDate(from: TimeInterval(model.timeshamp)).dateString()
+        toggleButtonAction = buttonAction
+        setupToggleButton(with: UIScreen.main.bounds.width)
+        setState(model.isExpanded ? .expanded : .collapsed)
     }
     
     // MARK: - Private Methods
     private func setupToggleButton(with width: CGFloat) {
         toggleButton.cornerRadius = 5
-        
-        let previewText = previewText.text
-        let labelWidth = width - contentInset
-        
-        if let textFullHeight = previewText?.getFrameRect(width: labelWidth, lines: 0).height,
-           let textLimitedHeight = previewText?.getFrameRect(width: labelWidth, lines: textLinesLimiter).height,
-           textFullHeight <= textLimitedHeight {
+        if let numberOfLines = previewTextLabel.text?.numberOfLines(width: width),
+           numberOfLines <= 2 {
             hideButton()
         } else {
             showButton()
@@ -56,14 +56,24 @@ final class PostTableViewCell: BaseTableViewCell {
     }
     
     private func hideButton() {
-        toggleButtonBottomAnchor.constant = 0
-        toggleButtonHeightAnchor.constant = 0
-        toogleButtonTopAnchor.constant = 0
+        toggleButton.isHidden = true
     }
     
     private func showButton() {
-        toggleButtonBottomAnchor.constant = 10
-        toggleButtonHeightAnchor.constant = 40
-        toogleButtonTopAnchor.constant = 10
+        toggleButton.isHidden = false
+    }
+    
+    private func setState(_ state: PostCellState) {
+        switch state {
+        case .collapsed:
+            previewTextLabel.numberOfLines = 2
+        case .expanded:
+            previewTextLabel.numberOfLines = 0
+        }
+        toggleButton.setTitle(state.title, for: .normal)
+    }
+    
+    @IBAction private func toggleButtonTapped(_ sender: UIButton) {
+        toggleButtonAction?()
     }
 }
