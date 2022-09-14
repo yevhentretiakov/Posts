@@ -14,7 +14,7 @@ protocol DetailView: AnyObject {
 }
 
 protocol DetailPresenter {
-    func viewDidLoad(withPostId id: Int)
+    func viewDidLoad()
 }
 
 final class DefaultDetailPresenter: DetailPresenter {
@@ -22,17 +22,19 @@ final class DefaultDetailPresenter: DetailPresenter {
     private weak var view: DetailView?
     private let router: DetailRouter
     private let repository: DetailRepository
+    private let postId: Int
     
     // MARK: - Life Cycle Methods
-    init(view: DetailView, router: DetailRouter, repository: DetailRepository) {
+    init(view: DetailView, postId: Int, router: DetailRouter, repository: DetailRepository) {
         self.view = view
         self.router = router
         self.repository = repository
+        self.postId = postId
     }
     
     // MARK: - Internal Methods
-    func viewDidLoad(withPostId id: Int) {
-        fetchPostDetails(with: id)
+    func viewDidLoad() {
+        fetchPostDetails(with: postId)
     }
     
     // MARK: - Private Methods

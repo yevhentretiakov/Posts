@@ -10,7 +10,6 @@ import UIKit
 final class DetailViewController: UIViewController {
     // MARK: - Properties
     var presenter: DetailPresenter!
-    var postId: Int!
     
     // MARK: - Outlets
     @IBOutlet private weak var postImageView: UIImageView!
@@ -22,7 +21,7 @@ final class DetailViewController: UIViewController {
     // MARK: - Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter.viewDidLoad(withPostId: postId)
+        presenter.viewDidLoad()
     }
 }
 

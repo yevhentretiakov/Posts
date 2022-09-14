@@ -16,10 +16,9 @@ final class DefaultDetailBuilder {
     // MARK: - Methods
     func createDetailModule(withPostId id: Int) -> UIViewController {
         let view = DetailViewController()
-        view.postId = id
         let router = DefaultDetailRouter(viewController: view)
         let repository = DefaultDetailRepository()
-        let presenter = DefaultDetailPresenter(view: view, router: router, repository: repository)
+        let presenter = DefaultDetailPresenter(view: view, postId: id, router: router, repository: repository)
         view.presenter = presenter
         return view
     }
