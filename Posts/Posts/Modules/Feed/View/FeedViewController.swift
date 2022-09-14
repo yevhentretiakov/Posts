@@ -17,6 +17,52 @@ final class FeedViewController: UIViewController {
         return tableView
     }()
     
+    private lazy var gridCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: gridCompositionalLayout)
+        collectionView.showsVerticalScrollIndicator = false
+        return collectionView
+    }()
+    
+    private lazy var galleryCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: galleryCompositionalLayout)
+        collectionView.showsVerticalScrollIndicator = false
+        return collectionView
+    }()
+    
+    private lazy var gridCompositionalLayout: UICollectionViewCompositionalLayout = {
+        let inset: CGFloat = 10
+        // Item
+        let size = NSCollectionLayoutSize(
+            widthDimension: NSCollectionLayoutDimension.fractionalWidth(1),
+            heightDimension: NSCollectionLayoutDimension.estimated(.zero)
+        )
+        let item = NSCollectionLayoutItem(layoutSize: size)
+        item.contentInsets = NSDirectionalEdgeInsets(top: .zero, leading: inset, bottom: .zero, trailing: inset)
+        // Group
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitem: item, count: 2)
+        // Section
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: inset, leading: .zero, bottom: inset, trailing: .zero)
+        section.interGroupSpacing = 10
+        return UICollectionViewCompositionalLayout(section: section)
+    }()
+    
+    private lazy var galleryCompositionalLayout: UICollectionViewCompositionalLayout = {
+        // Item
+        let size = NSCollectionLayoutSize(
+            widthDimension: NSCollectionLayoutDimension.fractionalWidth(1),
+            heightDimension: NSCollectionLayoutDimension.estimated(.zero)
+        )
+        let item = NSCollectionLayoutItem(layoutSize: size)
+        // Group
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitem: item, count: 1)
+        // Section
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
+        section.interGroupSpacing = 10
+        return UICollectionViewCompositionalLayout(section: section)
+    }()
+    
     private lazy var menuActions: [UIAction] = {
         return [
             UIAction(title: "Sort by Date", image: UIImage(systemName: "clock.arrow.circlepath")) { _ in
@@ -39,19 +85,37 @@ final class FeedViewController: UIViewController {
         return button
     }()
     
+    private lazy var tabsView: HTabView = {
+        let tabs = HTabView(tabs: ["List", "Grid", "Gallery"],
+                            indicatorActiveColor: UIColor(named: "AppDarkColor") ?? .blue,
+                            indicatorInactiveColor: .label)
+        return tabs
+    }()
+    
     // MARK: - Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigationBar()
-        setupTableView()
-        layoutTableView()
+        setup()
+        layout()
         presenter.viewDidLoad()
     }
     
     // MARK: - Private Methods
+    private func setup() {
+        setupNavigationBar()
+        setupTabsView()
+        setupTableView()
+        setupGridCollectionView()
+        setupGalleryCollectionView()
+    }
+    
     private func setupNavigationBar() {
         title = "Feed"
         navigationItem.rightBarButtonItem = sortButton
+    }
+    
+    private func setupTabsView() {
+        tabsView.delegate = self
     }
     
     private func setupTableView() {
@@ -60,15 +124,85 @@ final class FeedViewController: UIViewController {
         PostTableViewCell.registerNib(in: tableView)
     }
     
+    private func setupGridCollectionView() {
+        gridCollectionView.delegate = self
+        gridCollectionView.dataSource = self
+        PostGridCollectionViewCell.registerNib(in: gridCollectionView)
+    }
+    
+    private func setupGalleryCollectionView() {
+        galleryCollectionView.delegate = self
+        galleryCollectionView.dataSource = self
+        PostGalleryCollectionViewCell.registerNib(in: galleryCollectionView)
+    }
+    
+    private func showPostsInList() {
+        tableView.isHidden = false
+        gridCollectionView.isHidden = true
+        galleryCollectionView.isHidden = true
+    }
+    
+    private func showPostsInGrid() {
+        tableView.isHidden = true
+        gridCollectionView.isHidden = false
+        galleryCollectionView.isHidden = true
+    }
+    
+    private func showPostsInGallery() {
+        tableView.isHidden = true
+        gridCollectionView.isHidden = true
+        galleryCollectionView.isHidden = false
+    }
+    
     // MARK: - Layout Methods
+    private func layout() {
+        layoutTabsView()
+        layoutTableView()
+        layoutGridCollectionView()
+        layoutGalleryCollectionView()
+    }
+    
+    private func layoutTabsView() {
+        view.addSubview(tabsView)
+        tabsView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tabsView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tabsView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            tabsView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            tabsView.heightAnchor.constraint(equalToConstant: 50)
+        ])
+    }
+    
     private func layoutTableView() {
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.topAnchor.constraint(equalTo: tabsView.bottomAnchor),
             tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
+        ])
+    }
+    
+    private func layoutGridCollectionView() {
+        view.addSubview(gridCollectionView)
+        gridCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            gridCollectionView.topAnchor.constraint(equalTo: tabsView.bottomAnchor),
+            gridCollectionView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            gridCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            gridCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
+        ])
+    }
+    
+    private func layoutGalleryCollectionView() {
+        view.addSubview(galleryCollectionView)
+        galleryCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            galleryCollectionView.topAnchor.constraint(equalTo: tabsView.bottomAnchor),
+            galleryCollectionView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            galleryCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            galleryCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
         ])
     }
 }
@@ -77,6 +211,8 @@ final class FeedViewController: UIViewController {
 extension FeedViewController: FeedView {
     func reloadData() {
         tableView.reloadData()
+        gridCollectionView.reloadData()
+        galleryCollectionView.reloadData()
     }
     func showMessage(title: String, message: String) {
         showAlert(title: title, message: message)
@@ -104,5 +240,51 @@ extension FeedViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         presenter.postTapped(with: indexPath.row)
+    }
+}
+
+// MARK: - UICollectionViewDataSource
+extension FeedViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return presenter.getItemsCount()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if collectionView == gridCollectionView {
+            let cell = PostGridCollectionViewCell.cell(in: collectionView, at: indexPath)
+            let post = presenter.getItem(at: indexPath.row)
+            cell.configure(with: post) { [unowned self] in
+                self.presenter.toggleButtonTapped(at: indexPath.row)
+            }
+            return cell
+        } else {
+            let cell = PostGalleryCollectionViewCell.cell(in: collectionView, at: indexPath)
+            let post = presenter.getItem(at: indexPath.row)
+            cell.configure(with: post) { [unowned self] in
+                self.presenter.toggleButtonTapped(at: indexPath.row)
+            }
+            return cell
+        }
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+extension FeedViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        presenter.postTapped(with: indexPath.row)
+    }
+}
+
+// MARK: - HTabViewDelegate
+extension FeedViewController: HTabViewDelegate {
+    func tabTapped(at index: Int) {
+        switch index {
+        case 1:
+            showPostsInGrid()
+        case 2:
+            showPostsInGallery()
+        default:
+            showPostsInList()
+        }
     }
 }

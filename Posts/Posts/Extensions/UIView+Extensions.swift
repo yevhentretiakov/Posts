@@ -17,4 +17,7 @@ extension UIView {
             self.layer.cornerRadius
         }
     }
+    func makeRounded() {
+        self.cornerRadius = self.frame.height / 2
+    }
 }

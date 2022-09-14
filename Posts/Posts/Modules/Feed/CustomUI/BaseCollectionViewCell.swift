@@ -8,22 +8,27 @@
 import UIKit
 
 // MARK: - Protocols
+protocol CollectionCellRegistrable {
+    static func registerNib(in collectionView: UICollectionView)
+    static func registerClass(in collectionView: UICollectionView)
+}
+
 protocol CollectionCellDequeuable {
     static func cell(in collectionView: UICollectionView, at indexPath: IndexPath) -> Self
 }
 
-class BaseCollectionViewCell: UITableViewCell, CellRegistrable, CollectionCellDequeuable {
+class BaseCollectionViewCell: UICollectionViewCell, CollectionCellRegistrable, CollectionCellDequeuable {
 
 }
 
 // MARK: - CellRegistrable for CollectionView
-extension CellRegistrable where Self: BaseCollectionViewCell {
-    static func registerNib(in collectionView: UITableView) {
-        collectionView.register(UINib(nibName: String(describing: Self.self), bundle: nil), forCellReuseIdentifier: String(describing: Self.self))
+extension CollectionCellRegistrable where Self: BaseCollectionViewCell {
+    static func registerNib(in collectionView: UICollectionView) {
+        collectionView.register(UINib(nibName: String(describing: Self.self), bundle: nil), forCellWithReuseIdentifier: String(describing: Self.self))
     }
     
-    static func registerClass(in collectionView: UITableView) {
-        collectionView.register(Self.self, forCellReuseIdentifier: String(describing: Self.self))
+    static func registerClass(in collectionView: UICollectionView) {
+        collectionView.register(Self.self, forCellWithReuseIdentifier: String(describing: Self.self))
     }
 }
 
