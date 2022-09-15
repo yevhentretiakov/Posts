@@ -11,11 +11,15 @@
 		CE00404028C72BAA0094E18C /* UINavigationController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE00403F28C72BAA0094E18C /* UINavigationController+Extensions.swift */; };
 		CE00404228C72BE40094E18C /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE00404128C72BE40094E18C /* UIViewController+Extensions.swift */; };
 		CE00404528C72DAA0094E18C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE00404428C72DAA0094E18C /* NetworkService.swift */; };
+		CE069E2D28D1C592009804B2 /* HTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE069E2828D1C592009804B2 /* HTabView.swift */; };
+		CE069E2E28D1C592009804B2 /* HTabViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE069E2928D1C592009804B2 /* HTabViewCell.swift */; };
+		CE069E3528D1D11F009804B2 /* PostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE069E3328D1D11F009804B2 /* PostCollectionViewCell.swift */; };
 		CE09882328C5EBA30033AA5B /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE09882228C5EBA30033AA5B /* UIView+Extensions.swift */; };
 		CE09882728C5EED10033AA5B /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE09882628C5EED10033AA5B /* Date+Extensions.swift */; };
 		CE09882928C604E10033AA5B /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE09882828C604E10033AA5B /* String+Extensions.swift */; };
 		CE09882D28C60B8E0033AA5B /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE09882C28C60B8E0033AA5B /* BaseTableViewCell.swift */; };
 		CE09882F28C62A7C0033AA5B /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE09882E28C62A7C0033AA5B /* BaseCollectionViewCell.swift */; };
+		CE304E6B28D3117E0000CD46 /* PostCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE304E6A28D3117E0000CD46 /* PostCollectionViewCell.xib */; };
 		CE3CD3FC28D065C900CB47C6 /* ApiEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3CD3FB28D065C900CB47C6 /* ApiEndpoint.swift */; };
 		CE444BB528D0AC2E00B6E8A8 /* FeedRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE56258028C2139C00CF2D40 /* FeedRepository.swift */; };
 		CE56255328C1EE9700CF2D40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE56255228C1EE9700CF2D40 /* AppDelegate.swift */; };
@@ -48,11 +52,15 @@
 		CE00403F28C72BAA0094E18C /* UINavigationController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extensions.swift"; sourceTree = "<group>"; };
 		CE00404128C72BE40094E18C /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		CE00404428C72DAA0094E18C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		CE069E2828D1C592009804B2 /* HTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTabView.swift; sourceTree = "<group>"; };
+		CE069E2928D1C592009804B2 /* HTabViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTabViewCell.swift; sourceTree = "<group>"; };
+		CE069E3328D1D11F009804B2 /* PostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCollectionViewCell.swift; sourceTree = "<group>"; };
 		CE09882228C5EBA30033AA5B /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		CE09882628C5EED10033AA5B /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		CE09882828C604E10033AA5B /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		CE09882C28C60B8E0033AA5B /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		CE09882E28C62A7C0033AA5B /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
+		CE304E6A28D3117E0000CD46 /* PostCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostCollectionViewCell.xib; sourceTree = "<group>"; };
 		CE3CD3FB28D065C900CB47C6 /* ApiEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiEndpoint.swift; sourceTree = "<group>"; };
 		CE56254F28C1EE9700CF2D40 /* Posts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Posts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE56255228C1EE9700CF2D40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -122,6 +130,33 @@
 				CE3CD3FB28D065C900CB47C6 /* ApiEndpoint.swift */,
 			);
 			path = NetworkService;
+			sourceTree = "<group>";
+		};
+		CE069E2728D1C592009804B2 /* HTabView */ = {
+			isa = PBXGroup;
+			children = (
+				CE069E2828D1C592009804B2 /* HTabView.swift */,
+				CE069E2928D1C592009804B2 /* HTabViewCell.swift */,
+			);
+			path = HTabView;
+			sourceTree = "<group>";
+		};
+		CE069E3728D1D12E009804B2 /* PostTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				CE56258228C2152C00CF2D40 /* PostTableViewCell.swift */,
+				CE56258328C2152C00CF2D40 /* PostTableViewCell.xib */,
+			);
+			path = PostTableViewCell;
+			sourceTree = "<group>";
+		};
+		CE069E3828D1D138009804B2 /* PostCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				CE069E3328D1D11F009804B2 /* PostCollectionViewCell.swift */,
+				CE304E6A28D3117E0000CD46 /* PostCollectionViewCell.xib */,
+			);
+			path = PostCollectionViewCell;
 			sourceTree = "<group>";
 		};
 		CE36877A28CF253E002240CD /* DataRepository */ = {
@@ -273,8 +308,9 @@
 		CE56257328C1F2AE00CF2D40 /* CustomUI */ = {
 			isa = PBXGroup;
 			children = (
-				CE56258228C2152C00CF2D40 /* PostTableViewCell.swift */,
-				CE56258328C2152C00CF2D40 /* PostTableViewCell.xib */,
+				CE069E3728D1D12E009804B2 /* PostTableViewCell */,
+				CE069E3828D1D138009804B2 /* PostCollectionViewCell */,
+				CE069E2728D1C592009804B2 /* HTabView */,
 				CE09882C28C60B8E0033AA5B /* BaseTableViewCell.swift */,
 				CE09882E28C62A7C0033AA5B /* BaseCollectionViewCell.swift */,
 			);
@@ -430,6 +466,7 @@
 				CE56258528C2152C00CF2D40 /* PostTableViewCell.xib in Resources */,
 				CE56255C28C1EE9900CF2D40 /* Assets.xcassets in Resources */,
 				CE7D7A4228C8B00A001E77F6 /* DetailViewController.xib in Resources */,
+				CE304E6B28D3117E0000CD46 /* PostCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -482,6 +519,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE069E3528D1D11F009804B2 /* PostCollectionViewCell.swift in Sources */,
 				CE444BB528D0AC2E00B6E8A8 /* FeedRepository.swift in Sources */,
 				CE56257528C1F31B00CF2D40 /* FeedBuilder.swift in Sources */,
 				CE56257728C1F3D700CF2D40 /* FeedRouter.swift in Sources */,
@@ -491,10 +529,12 @@
 				CE56257E28C2059500CF2D40 /* PostModel.swift in Sources */,
 				CE56257028C1F04600CF2D40 /* FeedViewController.swift in Sources */,
 				CE7D7A3A28C89E58001E77F6 /* DetailViewController.swift in Sources */,
+				CE069E2E28D1C592009804B2 /* HTabViewCell.swift in Sources */,
 				CE00404228C72BE40094E18C /* UIViewController+Extensions.swift in Sources */,
 				CE7D7A4028C89FD5001E77F6 /* DetailBuilder.swift in Sources */,
 				CE56255328C1EE9700CF2D40 /* AppDelegate.swift in Sources */,
 				CE7D7A4828C8B891001E77F6 /* PostDetailModel.swift in Sources */,
+				CE069E2D28D1C592009804B2 /* HTabView.swift in Sources */,
 				CE00404028C72BAA0094E18C /* UINavigationController+Extensions.swift in Sources */,
 				CE56257928C1F43600CF2D40 /* FeedPresenter.swift in Sources */,
 				CE00404528C72DAA0094E18C /* NetworkService.swift in Sources */,

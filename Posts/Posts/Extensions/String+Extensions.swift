@@ -15,4 +15,7 @@ extension String {
         let numberOfLines = Int(boundingBox.height/font.lineHeight)
         return numberOfLines
     }
+    func textWidth(_ font: UIFont = .systemFont(ofSize: 17)) -> CGFloat {
+        return self.size(withAttributes: [NSAttributedString.Key.font : font]).width
+    }
 }

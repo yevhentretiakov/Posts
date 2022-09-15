@@ -17,4 +17,14 @@ extension UIView {
             self.layer.cornerRadius
         }
     }
+    func makeRounded() {
+        self.cornerRadius = self.frame.height / 2
+    }
+    func center(relativeTo view: UIView) {
+        self.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            self.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
 }
