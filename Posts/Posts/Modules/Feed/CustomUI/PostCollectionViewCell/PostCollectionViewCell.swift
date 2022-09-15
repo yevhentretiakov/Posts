@@ -8,7 +8,7 @@
 import UIKit
 
 // MARK: - Protocols
-protocol PostCell {
+protocol PostCell: AnyObject {
     var titleLabel: UILabel! { get set }
     var previewTextLabel: UILabel! { get set }
     var likesCountLabel: UILabel! { get set }
@@ -16,7 +16,7 @@ protocol PostCell {
     var toggleButton: UIButton! { get set }
     var textLinesLimit: Int { get }
     var toggleButtonAction: EmptyBlock? { get set }
-    mutating func configure(with model: PostUIModel, buttonAction: EmptyBlock?)
+    func configure(with model: PostUIModel, buttonAction: EmptyBlock?)
     func setupToggleButton(with width: CGFloat)
     func hideButton()
     func showButton()
@@ -26,7 +26,7 @@ protocol PostCell {
 
 extension PostCell {
     // MARK: - Internal Methods
-    mutating func configure(with model: PostUIModel, buttonAction: EmptyBlock? = nil) {
+    func configure(with model: PostUIModel, buttonAction: EmptyBlock? = nil) {
         titleLabel.text = model.title
         previewTextLabel.text = model.previewText
         likesCountLabel.text = model.likesCount.stringValue

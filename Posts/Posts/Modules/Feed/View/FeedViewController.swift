@@ -199,7 +199,7 @@ extension FeedViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = PostTableViewCell.cell(in: tableView, at: indexPath)
+        let cell = PostTableViewCell.cell(in: tableView, at: indexPath)
         let post = presenter.getItem(at: indexPath.row)
         cell.configure(with: post) { [unowned self] in
             self.presenter.toggleButtonTapped(at: indexPath.row)
@@ -223,7 +223,7 @@ extension FeedViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        var cell = PostCollectionViewCell.cell(in: collectionView, at: indexPath)
+        let cell = PostCollectionViewCell.cell(in: collectionView, at: indexPath)
         let post = presenter.getItem(at: indexPath.row)
         cell.configure(with: post) { [unowned self] in
             self.presenter.toggleButtonTapped(at: indexPath.row)
