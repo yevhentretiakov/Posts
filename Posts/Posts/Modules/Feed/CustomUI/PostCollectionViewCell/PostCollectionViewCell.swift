@@ -9,32 +9,30 @@ import UIKit
 
 // MARK: - Protocols
 protocol PostCell {
-    func configure(with model: PostUIModel, buttonAction: EmptyBlock?)
+    var titleLabel: UILabel! { get set }
+    var previewTextLabel: UILabel! { get set }
+    var likesCountLabel: UILabel! { get set }
+    var dateLabel: UILabel! { get set }
+    var toggleButton: UIButton! { get set }
+    var textLinesLimit: Int { get }
+    var toggleButtonAction: EmptyBlock? { get set }
+    mutating func configure(with model: PostUIModel, buttonAction: EmptyBlock?)
     func setupToggleButton(with width: CGFloat)
     func hideButton()
     func showButton()
     func setState(_ state: PostCellState)
+    func toggleButtonTapped(_ sender: UIButton)
 }
 
-final class PostCollectionViewCell: BaseCollectionViewCell, PostCell {
-    // MARK: - Properties
-    @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet private weak var previewTextLabel: UILabel!
-    @IBOutlet private weak var likesCountLabel: UILabel!
-    @IBOutlet private weak var dateLabel: UILabel!
-    @IBOutlet private weak var toggleButton: UIButton!
-    
-    private let textLinesLimit = 2
-    private var toggleButtonAction: EmptyBlock?
-    
+extension PostCell {
     // MARK: - Internal Methods
-    func configure(with model: PostUIModel, buttonAction: EmptyBlock? = nil) {
+    mutating func configure(with model: PostUIModel, buttonAction: EmptyBlock? = nil) {
         titleLabel.text = model.title
         previewTextLabel.text = model.previewText
         likesCountLabel.text = model.likesCount.stringValue
         dateLabel.text = Date.getDate(from: TimeInterval(model.timeshamp)).dateString(in: "dd.MM")
         toggleButtonAction = buttonAction
-        setupToggleButton(with: UIScreen.main.bounds.width / 2)
+        setupToggleButton(with: UIScreen.main.bounds.width)
         setState(model.isExpanded ? .expanded : .collapsed)
     }
     
@@ -66,8 +64,20 @@ final class PostCollectionViewCell: BaseCollectionViewCell, PostCell {
         }
         toggleButton.setTitle(state.title, for: .normal)
     }
+}
+
+final class PostCollectionViewCell: BaseCollectionViewCell, PostCell {
+    // MARK: - Properties
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var previewTextLabel: UILabel!
+    @IBOutlet weak var likesCountLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var toggleButton: UIButton!
     
-    @IBAction private func toggleButtonTapped(_ sender: UIButton) {
+    var toggleButtonAction: EmptyBlock?
+    let textLinesLimit = 2
+    
+    @IBAction func toggleButtonTapped(_ sender: UIButton) {
         toggleButtonAction?()
     }
 }
