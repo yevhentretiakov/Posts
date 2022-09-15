@@ -22,7 +22,7 @@ enum PostCellState {
     }
 }
 
-final class PostTableViewCell: BaseTableViewCell {
+final class PostTableViewCell: BaseTableViewCell, PostCell {
     // MARK: - Properties
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var previewTextLabel: UILabel!
@@ -45,7 +45,7 @@ final class PostTableViewCell: BaseTableViewCell {
     }
     
     // MARK: - Private Methods
-    private func setupToggleButton(with width: CGFloat) {
+    func setupToggleButton(with width: CGFloat) {
         toggleButton.cornerRadius = 5
         if let numberOfLines = previewTextLabel.text?.numberOfLines(width: width),
            numberOfLines <= 2 {
@@ -55,15 +55,15 @@ final class PostTableViewCell: BaseTableViewCell {
         }
     }
     
-    private func hideButton() {
+    func hideButton() {
         toggleButton.isHidden = true
     }
     
-    private func showButton() {
+    func showButton() {
         toggleButton.isHidden = false
     }
     
-    private func setState(_ state: PostCellState) {
+    func setState(_ state: PostCellState) {
         switch state {
         case .collapsed:
             previewTextLabel.numberOfLines = 2

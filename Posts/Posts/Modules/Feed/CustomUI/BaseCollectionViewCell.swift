@@ -18,7 +18,7 @@ protocol CollectionCellDequeuable {
 }
 
 class BaseCollectionViewCell: UICollectionViewCell, CollectionCellRegistrable, CollectionCellDequeuable {
-
+    
 }
 
 // MARK: - CellRegistrable for CollectionView

@@ -1,5 +1,5 @@
 //
-//  PostGridCollectionViewCell.swift
+//  PostCollectionViewCell.swift
 //  Posts
 //
 //  Created by Yevhen Tretiakov on 14.09.2022.
@@ -7,7 +7,16 @@
 
 import UIKit
 
-final class PostGridCollectionViewCell: BaseCollectionViewCell {
+// MARK: - Protocols
+protocol PostCell {
+    func configure(with model: PostUIModel, buttonAction: EmptyBlock?)
+    func setupToggleButton(with width: CGFloat)
+    func hideButton()
+    func showButton()
+    func setState(_ state: PostCellState)
+}
+
+final class PostCollectionViewCell: BaseCollectionViewCell, PostCell {
     // MARK: - Properties
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var previewTextLabel: UILabel!
@@ -30,7 +39,7 @@ final class PostGridCollectionViewCell: BaseCollectionViewCell {
     }
     
     // MARK: - Private Methods
-    private func setupToggleButton(with width: CGFloat) {
+    func setupToggleButton(with width: CGFloat) {
         toggleButton.cornerRadius = 5
         if let numberOfLines = previewTextLabel.text?.numberOfLines(width: width),
            numberOfLines <= 2 {
@@ -40,15 +49,15 @@ final class PostGridCollectionViewCell: BaseCollectionViewCell {
         }
     }
     
-    private func hideButton() {
+    func hideButton() {
         toggleButton.isHidden = true
     }
     
-    private func showButton() {
+    func showButton() {
         toggleButton.isHidden = false
     }
     
-    private func setState(_ state: PostCellState) {
+    func setState(_ state: PostCellState) {
         switch state {
         case .collapsed:
             previewTextLabel.numberOfLines = 2

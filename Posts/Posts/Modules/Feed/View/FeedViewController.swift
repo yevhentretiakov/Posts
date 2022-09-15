@@ -17,14 +17,8 @@ final class FeedViewController: UIViewController {
         return tableView
     }()
     
-    private lazy var gridCollectionView: UICollectionView = {
+    private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: gridCompositionalLayout)
-        collectionView.showsVerticalScrollIndicator = false
-        return collectionView
-    }()
-    
-    private lazy var galleryCollectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: galleryCompositionalLayout)
         collectionView.showsVerticalScrollIndicator = false
         return collectionView
     }()
@@ -106,7 +100,6 @@ final class FeedViewController: UIViewController {
         setupTabsView()
         setupTableView()
         setupGridCollectionView()
-        setupGalleryCollectionView()
     }
     
     private func setupNavigationBar() {
@@ -125,33 +118,26 @@ final class FeedViewController: UIViewController {
     }
     
     private func setupGridCollectionView() {
-        gridCollectionView.delegate = self
-        gridCollectionView.dataSource = self
-        PostGridCollectionViewCell.registerNib(in: gridCollectionView)
-    }
-    
-    private func setupGalleryCollectionView() {
-        galleryCollectionView.delegate = self
-        galleryCollectionView.dataSource = self
-        PostGalleryCollectionViewCell.registerNib(in: galleryCollectionView)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        PostCollectionViewCell.registerNib(in: collectionView)
     }
     
     private func showPostsInList() {
         tableView.isHidden = false
-        gridCollectionView.isHidden = true
-        galleryCollectionView.isHidden = true
+        collectionView.isHidden = true
     }
     
     private func showPostsInGrid() {
         tableView.isHidden = true
-        gridCollectionView.isHidden = false
-        galleryCollectionView.isHidden = true
+        collectionView.isHidden = false
+        collectionView.setCollectionViewLayout(gridCompositionalLayout, animated: false)
     }
     
     private func showPostsInGallery() {
         tableView.isHidden = true
-        gridCollectionView.isHidden = true
-        galleryCollectionView.isHidden = false
+        collectionView.isHidden = false
+        collectionView.setCollectionViewLayout(galleryCompositionalLayout, animated: false)
     }
     
     // MARK: - Layout Methods
@@ -159,7 +145,6 @@ final class FeedViewController: UIViewController {
         layoutTabsView()
         layoutTableView()
         layoutGridCollectionView()
-        layoutGalleryCollectionView()
     }
     
     private func layoutTabsView() {
@@ -185,24 +170,13 @@ final class FeedViewController: UIViewController {
     }
     
     private func layoutGridCollectionView() {
-        view.addSubview(gridCollectionView)
-        gridCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(collectionView)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            gridCollectionView.topAnchor.constraint(equalTo: tabsView.bottomAnchor),
-            gridCollectionView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
-            gridCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            gridCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
-        ])
-    }
-    
-    private func layoutGalleryCollectionView() {
-        view.addSubview(galleryCollectionView)
-        galleryCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            galleryCollectionView.topAnchor.constraint(equalTo: tabsView.bottomAnchor),
-            galleryCollectionView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
-            galleryCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            galleryCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
+            collectionView.topAnchor.constraint(equalTo: tabsView.bottomAnchor),
+            collectionView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
         ])
     }
 }
@@ -211,8 +185,7 @@ final class FeedViewController: UIViewController {
 extension FeedViewController: FeedView {
     func reloadData() {
         tableView.reloadData()
-        gridCollectionView.reloadData()
-        galleryCollectionView.reloadData()
+        collectionView.reloadData()
     }
     func showMessage(title: String, message: String) {
         showAlert(title: title, message: message)
@@ -250,21 +223,12 @@ extension FeedViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == gridCollectionView {
-            let cell = PostGridCollectionViewCell.cell(in: collectionView, at: indexPath)
-            let post = presenter.getItem(at: indexPath.row)
-            cell.configure(with: post) { [unowned self] in
-                self.presenter.toggleButtonTapped(at: indexPath.row)
-            }
-            return cell
-        } else {
-            let cell = PostGalleryCollectionViewCell.cell(in: collectionView, at: indexPath)
-            let post = presenter.getItem(at: indexPath.row)
-            cell.configure(with: post) { [unowned self] in
-                self.presenter.toggleButtonTapped(at: indexPath.row)
-            }
-            return cell
+        let cell = PostCollectionViewCell.cell(in: collectionView, at: indexPath)
+        let post = presenter.getItem(at: indexPath.row)
+        cell.configure(with: post) { [unowned self] in
+            self.presenter.toggleButtonTapped(at: indexPath.row)
         }
+        return cell
     }
 }
 
