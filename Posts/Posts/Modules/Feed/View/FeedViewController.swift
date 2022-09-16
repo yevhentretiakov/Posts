@@ -86,6 +86,14 @@ final class FeedViewController: UIViewController {
         return tabs
     }()
     
+    
+    private lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.placeholder = "Search..."
+        searchBar.autocapitalizationType = .none
+        return searchBar
+    }()
+    
     // MARK: - Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,6 +108,7 @@ final class FeedViewController: UIViewController {
         setupTabsView()
         setupTableView()
         setupGridCollectionView()
+        setupSearchBar()
     }
     
     private func setupNavigationBar() {
@@ -121,6 +130,11 @@ final class FeedViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         PostCollectionViewCell.registerNib(in: collectionView)
+    }
+    
+    private func setupSearchBar() {
+        navigationItem.titleView = searchBar
+        searchBar.delegate = self
     }
     
     private func showPostsInList() {
@@ -202,7 +216,7 @@ extension FeedViewController: UITableViewDataSource {
         let cell = PostTableViewCell.cell(in: tableView, at: indexPath)
         let post = presenter.getItem(at: indexPath.row)
         cell.configure(with: post) { [unowned self] in
-            self.presenter.toggleButtonTapped(at: indexPath.row)
+            self.presenter.toggleButtonTappedInPost(with: post.postId)
         }
         return cell
     }
@@ -226,7 +240,7 @@ extension FeedViewController: UICollectionViewDataSource {
         let cell = PostCollectionViewCell.cell(in: collectionView, at: indexPath)
         let post = presenter.getItem(at: indexPath.row)
         cell.configure(with: post) { [unowned self] in
-            self.presenter.toggleButtonTapped(at: indexPath.row)
+            self.presenter.toggleButtonTappedInPost(with: post.postId)
         }
         return cell
     }
@@ -250,5 +264,20 @@ extension FeedViewController: HTabViewDelegate {
         default:
             showPostsInList()
         }
+    }
+}
+
+// MARK: - UISearchBarDelegate
+extension FeedViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchBar.showsCancelButton = true
+        presenter.setSearchText(searchText)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        searchBar.endEditing(true)
+        searchBar.text = nil
+        presenter.setSearchText("")
     }
 }
