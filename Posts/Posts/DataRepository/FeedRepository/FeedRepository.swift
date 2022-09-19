@@ -13,6 +13,7 @@ typealias PostModelResult = (Result<[PostNetworkModel]?, AFError>) -> Void
 // MARK: - Protocols
 protocol FeedRepository {
     func fetchPosts(completion: @escaping PostModelResult)
+    func fetchSearch(with string: String, completion: @escaping PostModelResult)
 }
 
 final class DefaultFeedRepository: FeedRepository {
@@ -26,7 +27,19 @@ final class DefaultFeedRepository: FeedRepository {
     
     // MARK: - Internal Methods
     func fetchPosts(completion: @escaping PostModelResult) {
+        networkService.cancel()
         networkService.request(PostsResponse.self, from: .fetchPosts) { response in
+            if let error = response.error {
+                completion(.failure(error))
+            } else {
+                completion(.success(response.value?.posts))
+            }
+        }
+    }
+    
+    func fetchSearch(with string: String, completion: @escaping PostModelResult) {
+        networkService.cancel()
+        networkService.request(PostsResponse.self, from: .fetchSearch(withString: string)) { response in
             if let error = response.error {
                 completion(.failure(error))
             } else {
