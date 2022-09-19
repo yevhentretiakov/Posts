@@ -24,8 +24,9 @@ protocol FeedPresenter {
     func getItemsCount() -> Int
     func getItem(at index: Int) -> PostUIModel
     func sortPosts(by sortType: SortType)
-    func toggleButtonTapped(at index: Int)
+    func toggleButtonTappedInPost(with id: Int)
     func postTapped(with index: Int)
+    func setSearchText(_ text: String)
 }
 
 final class DefaultFeedPresenter: FeedPresenter {
@@ -33,8 +34,18 @@ final class DefaultFeedPresenter: FeedPresenter {
     private weak var view: FeedView?
     private let router: FeedRouter
     private let repository: FeedRepository
-    
     private var posts = [PostUIModel]()
+    private var searchText = ""
+    private var filteredPosts: [PostUIModel] {
+        if searchText.isEmpty {
+            return posts
+        } else {
+            return posts.filter { post in
+                post.title.lowercased().contains(searchText.lowercased()) ||
+                post.previewText.lowercased().contains(searchText.lowercased())
+            }
+        }
+    }
     
     // MARK: - Life Cycle Methods
     init(view: FeedView, router: FeedRouter, repository: FeedRepository) {
@@ -79,11 +90,11 @@ final class DefaultFeedPresenter: FeedPresenter {
     }
     
     func getItemsCount() -> Int {
-        return posts.count
+        return filteredPosts.count
     }
     
     func getItem(at index: Int) -> PostUIModel {
-        return posts[index]
+        return filteredPosts[index]
     }
     
     func sortPosts(by sortType: SortType) {
@@ -96,13 +107,20 @@ final class DefaultFeedPresenter: FeedPresenter {
         view?.reloadData()
     }
     
-    func toggleButtonTapped(at index: Int) {
-        posts[index].isExpanded.toggle()
+    func toggleButtonTappedInPost(with id: Int) {
+        if let index = posts.firstIndex(where: { $0.postId == id }) {
+            posts[index].isExpanded.toggle()
+        }
         view?.reloadData()
     }
     
     func postTapped(with index: Int) {
         let postId = posts[index].postId
         router.showPostDetails(with: postId)
+    }
+    
+    func setSearchText(_ text: String) {
+        searchText = text
+        view?.reloadData()
     }
 }
