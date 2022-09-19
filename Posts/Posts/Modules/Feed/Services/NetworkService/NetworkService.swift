@@ -13,6 +13,7 @@ typealias AFResponse<T> = (AFDataResponse<T>) -> Void
 // MARK: - Protocols
 protocol NetworkService {
     func request<T: Decodable>(_ type: T.Type, from endpoint: ApiEndpoint, completion: @escaping AFResponse<T>)
+    func cancel()
 }
 
 final class DefaultNetworkService: NetworkService {
@@ -23,13 +24,19 @@ final class DefaultNetworkService: NetworkService {
         return decoder
     }()
     
+    private var request: DataRequest?
+    
     // MARK: - Methods
     func request<T: Decodable>(_ type: T.Type, from endpoint: ApiEndpoint, completion: @escaping AFResponse<T>) {
-        AF.request(endpoint.path,
+        request = AF.request(endpoint.path,
                    method: endpoint.method,
                    parameters: endpoint.parameters,
                    encoding: endpoint.encoding,
                    headers: endpoint.headers)
         .responseDecodable(of: type, decoder: DefaultNetworkService.decoder, completionHandler: completion)
+    }
+    
+    func cancel() {
+        request?.cancel()
     }
 }

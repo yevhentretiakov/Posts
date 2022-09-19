@@ -35,17 +35,13 @@ final class DefaultFeedPresenter: FeedPresenter {
     private let router: FeedRouter
     private let repository: FeedRepository
     private var posts = [PostUIModel]()
-    private var searchText = ""
-    private var filteredPosts: [PostUIModel] {
-        if searchText.isEmpty {
-            return posts
-        } else {
-            return posts.filter { post in
-                post.title.lowercased().contains(searchText.lowercased()) ||
-                post.previewText.lowercased().contains(searchText.lowercased())
-            }
+    private var searchText = "" {
+        didSet {
+            updateSearchResults()
         }
     }
+    
+    private var timer: Timer?
     
     // MARK: - Life Cycle Methods
     init(view: FeedView, router: FeedRouter, repository: FeedRepository) {
@@ -84,17 +80,58 @@ final class DefaultFeedPresenter: FeedPresenter {
         }
     }
     
+    private func updateSearchResults() {
+        timer?.invalidate()
+        if searchText.count >= 2 {
+            timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(fetchSearch), userInfo: nil, repeats: false)
+        } else {
+            fetchPosts()
+        }
+    }
+    
+    @objc private func fetchSearch() {
+        repository.fetchSearch(with: searchText) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let posts):
+                if let posts = posts {
+                    self.posts = posts.map({ post in
+                        PostUIModel(postId: post.postId,
+                                    timeshamp: post.timeshamp,
+                                    title: post.title,
+                                    previewText: post.previewText,
+                                    likesCount: post.likesCount)
+                    }).filter { post in
+                        post.title.lowercased().contains(self.searchText.lowercased()) ||
+                        post.previewText.lowercased().contains(self.searchText.lowercased())
+                    }
+                    DispatchQueue.main.async {
+                        self.view?.reloadData()
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.view?.showMessage(title: "Network Error", message: "Please try again later...")
+                    }
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self.view?.showMessage(title: "Network Error", message: error.localizedDescription)
+                }
+            }
+        }
+    }
+    
     // MARK: - Internal Methods
     func viewDidLoad() {
         fetchPosts()
     }
     
     func getItemsCount() -> Int {
-        return filteredPosts.count
+        return posts.count
     }
     
     func getItem(at index: Int) -> PostUIModel {
-        return filteredPosts[index]
+        return posts[index]
     }
     
     func sortPosts(by sortType: SortType) {

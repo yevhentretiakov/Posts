@@ -11,6 +11,7 @@ import Alamofire
 // MARK: - Enums
 enum ApiEndpoint {
     case fetchPosts
+    case fetchSearch(withString: String)
     case fetchPostDetails(id: Int)
     static let baseURL = "https://raw.githubusercontent.com/anton-natife/jsons/master/api/"
 }
@@ -31,6 +32,8 @@ extension ApiEndpoint: HTTPRequest {
         switch self {
         case .fetchPosts:
             return ApiEndpoint.baseURL
+        case .fetchSearch:
+            return ApiEndpoint.baseURL
         case .fetchPostDetails(_):
             return ApiEndpoint.baseURL
         }
@@ -38,6 +41,8 @@ extension ApiEndpoint: HTTPRequest {
     var path: String {
         switch self {
         case .fetchPosts:
+            return "\(url)main.json"
+        case .fetchSearch:
             return "\(url)main.json"
         case .fetchPostDetails(let id):
             return "\(url)posts/\(id).json"
@@ -47,6 +52,8 @@ extension ApiEndpoint: HTTPRequest {
         switch self {
         case .fetchPosts:
             return .get
+        case .fetchSearch:
+            return .get
         case .fetchPostDetails(_):
             return .get
         }
@@ -54,6 +61,8 @@ extension ApiEndpoint: HTTPRequest {
     var headers: HTTPHeaders? {
         switch self {
         case .fetchPosts:
+            return nil
+        case .fetchSearch:
             return nil
         case .fetchPostDetails(_):
             return nil
@@ -63,6 +72,8 @@ extension ApiEndpoint: HTTPRequest {
         switch self {
         case .fetchPosts:
             return nil
+        case .fetchSearch:
+            return nil
         case .fetchPostDetails(_):
             return nil
         }
@@ -70,6 +81,8 @@ extension ApiEndpoint: HTTPRequest {
     var encoding: URLEncoding {
         switch self {
         case .fetchPosts:
+            return .default
+        case .fetchSearch:
             return .default
         case .fetchPostDetails(_):
             return .default
