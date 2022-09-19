@@ -104,11 +104,16 @@ final class FeedViewController: UIViewController {
     
     // MARK: - Private Methods
     private func setup() {
+        setupViewController()
         setupNavigationBar()
         setupTabsView()
         setupTableView()
         setupGridCollectionView()
         setupSearchBar()
+    }
+    
+    private func setupViewController() {
+        view.backgroundColor = .systemBackground
     }
     
     private func setupNavigationBar() {
